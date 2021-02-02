@@ -11,6 +11,10 @@ public class blockPlace extends Mod {
     @Override
     public void registerClientCommands(CommandHandler handler){
         handler.<Player>register( "place", "<block> <team> <x> <y>", "Place blocks", (args, player) ->{
+	    if(!player.admin){
+                player.sendMessage("[red]You are not admin");
+                return;
+            }
 
             Block sblock = Vars.content.blocks().
                     find(b -> b.name.equals(args[0]));
@@ -29,7 +33,7 @@ public class blockPlace extends Mod {
                 return;
             }
             Team tteam;
-            switch (args[2]) {
+            switch (args[1]) {
                 case "sharded":
                     tteam = Team.sharded;
                     break;
